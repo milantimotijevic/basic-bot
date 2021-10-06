@@ -10,7 +10,6 @@ state.client.login(process.env.BOT_TOKEN);
 state.client.on('voiceStateUpdate', async(oldMember, newMember) => {
 	interpretCommand(newMember.id, {
 		guildId: newMember.guild.id,
-		channelId: newMember.channelID,
 		deafOld: oldMember.selfDeaf,
 		deafNew: newMember.selfDeaf,
 		muteOld: oldMember.selfMute,
