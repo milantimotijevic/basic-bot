@@ -1,24 +1,19 @@
 require('dotenv').config();
 
+const state = require('./service/state');
 const { interpretCommand } = require('./service/command');
 
 const Discord = require('discord.js');
-const client = new Discord.Client();
-client.login(process.env.BOT_TOKEN);
+state.client = new Discord.Client();
+state.client.login(process.env.BOT_TOKEN);
 
-client.on('ready', async () => {
-	console.log('ready');
-});
-
-client.on('voiceStateUpdate', async(oldState, newState) => {
-	interpretCommand(oldState.id, {
-		deafOld: oldState.selfDeaf,
-		deafNew: newState.selfDeaf,
-		muteOld: oldState.selfMute,
-		muteNew: newState.selfMute 
+state.client.on('voiceStateUpdate', async(oldMember, newMember) => {
+	interpretCommand(newMember.id, {
+		guildId: newMember.guild.id,
+		channelId: newMember.channelID,
+		deafOld: oldMember.selfDeaf,
+		deafNew: newMember.selfDeaf,
+		muteOld: oldMember.selfMute,
+		muteNew: newMember.selfMute 
 	})
-});
-
-client.on('message', async (message) => {
-	console.log('message detected')
 });
