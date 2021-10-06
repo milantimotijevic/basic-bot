@@ -12,7 +12,7 @@ const callToArms = (guildId) => {
 
     guild.members.cache.forEach((member) => {
        
-        if (!member.user.bot) {
+        if (!member.user.bot && member.voice) {
             member.voice.setChannel(soldierChannel.id)
         }
         
@@ -24,7 +24,7 @@ const breakOut = (guildId) => {
     guild.members.cache.forEach((member) => {
 
         let role;
-        if (member && !member.user.bot && member.roles && member.roles.cache) {
+        if (member && member.voice && !member.user.bot && member.roles && member.roles.cache) {
             member.roles.cache.forEach((r) => {
                 if (r && r.name && r.name !== '@everyone') {
                     role = r;
