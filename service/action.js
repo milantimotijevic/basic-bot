@@ -10,7 +10,13 @@ const callToArms = (guildId) => {
         return;
     }
 
-    console.log(soldierChannel.id);
+    guild.members.cache.forEach(async (member) => {
+       
+        if (!member.user.bot) {
+           await member.voice.setChannel(soldierChannel.id)
+        }
+        
+    })
 };
 
 const breakOut = (guildName) => {
