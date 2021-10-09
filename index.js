@@ -8,11 +8,15 @@ state.client = new Discord.Client();
 state.client.login(process.env.BOT_TOKEN);
 
 state.client.on('voiceStateUpdate', async(oldMember, newMember) => {
-	interpretCommand(newMember.id, {
-		guildId: newMember.guild.id,
-		deafOld: oldMember.selfDeaf,
-		deafNew: newMember.selfDeaf,
-		muteOld: oldMember.selfMute,
-		muteNew: newMember.selfMute 
-	})
+	try {
+		interpretCommand(newMember.id, {
+			guildId: newMember.guild.id,
+			deafOld: oldMember.selfDeaf,
+			deafNew: newMember.selfDeaf,
+			muteOld: oldMember.selfMute,
+			muteNew: newMember.selfMute 
+		})
+	} catch (err) {
+		
+	}
 });
